@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earendil Advisory — Internal Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:  #0a1628;
+    --navy2: #0f1f3a;
+    --gold:  #c4a359;
+    --gold2: #e2c47a;
+    --cream: #e8dfc8;
+    --muted: #8a9ab5;
+    --white: #f5f2ec;
+  }
+
+  html, body {
+    background: #06101e;
+    font-family: 'Jost', sans-serif;
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  .deck {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 24px 12px 60px;
+  }
+
+  .slide {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    background: var(--navy);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: min(100svh, 560px);
+  }
+
+  .horizon {
+    position: absolute;
+    bottom: 54px; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--gold) 15%, var(--gold) 85%, transparent 100%);
+    opacity: 0.5;
+  }
+
+  .slide-footer {
+    position: absolute;
+    bottom: 16px; left: 32px; right: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .footer-logo {
+    display: flex; align-items: center; gap: 8px;
+    color: var(--muted); font-size: 10px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+  }
+
+  .eyebrow {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .content {
+    flex: 1; display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 48px 48px 90px;
+    gap: 0;
+  }
+
+  h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; line-height: 1.05; color: var(--white); }
+  h2 { font-family: 'Cormorant Garamond', serif; font-weight: 400; line-height: 1.1; color: var(--white); }
+  .gold { color: var(--gold); }
+  .italic { font-style: italic; }
+  p, .body { font-family: 'Jost', sans-serif; font-weight: 300; color: var(--cream); line-height: 1.65; }
+
+  /* ── LOGO FOOTER SNIPPET ── */
+  .logo-footer-svg { opacity: 0.5; }
+
+  /* ══ SLIDE 1: TITLE ══ */
+  .s1 .starfield { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .s1 .starfield::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 12% 18%, rgba(196,163,89,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 78%  9%, rgba(232,223,200,0.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 55% 25%, rgba(196,163,89,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 88% 35%, rgba(232,223,200,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 33% 55%, rgba(232,223,200,0.25) 0%, transparent 100%),
+      radial-gradient(1px 1px at 67% 70%, rgba(196,163,89,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 22% 82%, rgba(232,223,200,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 91% 88%, rgba(232,223,200,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at  5% 44%, rgba(232,223,200,0.2) 0%, transparent 100%);
+  }
+  .s1 .content {
+    position: relative; z-index: 2;
+    align-items: center; text-align: center;
+    gap: 28px; padding-top: 60px;
+  }
+  .s1 .title-logo-wrap { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+  .s1 h1 { font-size: clamp(56px, 10vw, 88px); letter-spacing: -0.01em; }
+  .s1 .subtitle {
+    font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); max-width: 340px; line-height: 1.7;
+  }
+
+  /* ══ SLIDE 2: THE MYTH ══ */
+  .s2-myth .content { gap: 32px; }
+  .s2-myth h2 { font-size: clamp(30px, 5vw, 52px); max-width: 700px; }
+  .s2-myth .myth-body {
+    font-size: 15px; color: var(--muted); max-width: 640px; line-height: 1.75;
+  }
+  .s2-myth .myth-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: clamp(18px, 2.5vw, 24px);
+    color: var(--gold); border-left: 2px solid var(--gold);
+    padding-left: 24px; max-width: 620px; line-height: 1.5;
+    margin-top: 8px;
+  }
+
+  /* ══ SLIDE 3: PREMISE ══ */
+  .s3 .content { gap: 28px; }
+  .s3 h2 { font-size: clamp(30px, 5vw, 50px); }
+  .s3 p  { font-size: 15px; max-width: 600px; color: var(--muted); margin-top: 8px; }
+
+  /* ══ SLIDE 4: THE FIRM ══ */
+  .s4-firm .content { gap: 36px; }
+  .s4-firm h2 { font-size: clamp(28px, 4.5vw, 46px); }
+  .s4-firm .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 8px; }
+  .s4-firm .pillar {
+    padding: 22px 24px; border-top: 1px solid rgba(196,163,89,0.25);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .s4-firm .pillar + .pillar { border-left: 1px solid rgba(196,163,89,0.1); }
+  .s4-firm .pillar-title { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+  .s4-firm .pillar-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ══ SLIDE 5: TARGET CLIENT ══ */
+  .s5-client .content { gap: 36px; }
+  .s5-client h2 { font-size: clamp(28px, 4.5vw, 46px); max-width: 600px; }
+  .s5-client .client-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 720px; }
+  .s5-client .client-card {
+    padding: 24px; background: rgba(196,163,89,0.04);
+    border: 1px solid rgba(196,163,89,0.15);
+  }
+  .s5-client .client-title { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .s5-client .client-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+  /* ══ SLIDE 6: SERVICES ══ */
+  .s6-svc .content { gap: 36px; }
+  .s6-svc h2 { font-size: clamp(28px, 4.5vw, 44px); }
+  .s6-svc .svc-row { display: flex; flex-direction: column; max-width: 720px; }
+  .s6-svc .svc-item {
+    display: flex; align-items: baseline; gap: 20px;
+    padding: 16px 0; border-bottom: 1px solid rgba(138,154,181,0.15);
+  }
+  .s6-svc .svc-item:last-child { border-bottom: none; }
+  .s6-svc .svc-num { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--gold); width: 36px; flex-shrink: 0; line-height: 1; }
+  .s6-svc .svc-content { display: flex; flex-direction: column; gap: 4px; }
+  .s6-svc .svc-title { font-size: 14px; font-weight: 500; color: var(--white); letter-spacing: 0.04em; }
+  .s6-svc .svc-body { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ══ SLIDE 7: DIFFERENTIATOR ══ */
+  .s7-diff .split { display: grid; grid-template-columns: 1fr 1fr; flex: 1; min-height: 0; }
+  .s7-diff .col { display: flex; flex-direction: column; justify-content: center; padding: 48px; gap: 16px; padding-bottom: 90px; }
+  .s7-diff .col-right { border-left: 1px solid rgba(196,163,89,0.2); background: rgba(196,163,89,0.03); }
+  .s7-diff .col-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+  .s7-diff .col-label.bad  { color: var(--muted); }
+  .s7-diff .col-label.good { color: var(--gold); }
+  .s7-diff h2 { font-size: clamp(22px, 3.5vw, 36px); line-height: 1.2; }
+  .s7-diff p  { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  /* ══ SLIDE 8: SILMARIL WHAT IT IS ══ */
+  .s8-sil .content { gap: 32px; }
+  .s8-sil h2 { font-size: clamp(28px, 4.5vw, 46px); }
+  .s8-sil .sil-intro { font-size: 14px; color: var(--muted); max-width: 580px; margin-top: -8px; line-height: 1.7; }
+  .s8-sil .split { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .s8-sil .col { display: flex; flex-direction: column; gap: 16px; padding: 0 24px 0 0; }
+  .s8-sil .col + .col { padding: 0 0 0 24px; border-left: 1px solid rgba(196,163,89,0.2); }
+  .s8-sil .list-item { display: flex; gap: 14px; align-items: flex-start; }
+  .s8-sil .list-marker { font-family: 'Cormorant Garamond', serif; font-size: 18px; line-height: 1.35; flex-shrink: 0; width: 18px; }
+  .s8-sil .list-marker.x     { color: var(--muted); opacity: 0.5; }
+  .s8-sil .list-marker.check { color: var(--gold); }
+  .s8-sil .list-text { font-size: 13px; font-weight: 300; line-height: 1.55; }
+  .s8-sil .list-text.dim { color: var(--muted); }
+  .s8-sil .list-text.lit { color: var(--cream); }
+  .s8-sil .col-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 4px; }
+  .s8-sil .col-eyebrow.bad  { color: var(--muted); }
+  .s8-sil .col-eyebrow.good { color: var(--gold); }
+
+  /* ══ SLIDE 9: THE MOAT ══ */
+  .s9 .content { gap: 36px; }
+  .s9 h2 { font-size: clamp(28px, 4.5vw, 46px); max-width: 560px; }
+  .s9 .moat-row { display: flex; flex-direction: column; max-width: 720px; }
+  .s9 .moat-item { display: flex; align-items: baseline; gap: 20px; padding: 15px 0; border-bottom: 1px solid rgba(138,154,181,0.15); }
+  .s9 .moat-item:last-child { border-bottom: none; }
+  .s9 .moat-marker { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; color: var(--gold); width: 32px; flex-shrink: 0; line-height: 1; }
+  .s9 .moat-text { font-size: 14px; color: var(--cream); line-height: 1.55; }
+  .s9 .moat-text strong { color: var(--white); font-weight: 500; }
+
+  /* ══ SLIDE 10: PRECEDENTS ══ */
+  .s10 .content { gap: 36px; }
+  .s10 h2 { font-size: clamp(28px, 4.5vw, 44px); }
+  .s10 .cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .s10 .case-item { display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(196,163,89,0.3); padding-top: 18px; }
+  .s10 .case-name { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+  .s10 .case-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+  /* ══ SLIDE 11: TEAM ══ */
+  .s11 .content { gap: 36px; }
+  .s11 h2 { font-size: clamp(28px, 4.5vw, 44px); }
+  .s11 .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .s11 .team-member { padding: 24px 28px; border-top: 1px solid rgba(196,163,89,0.25); display: flex; flex-direction: column; gap: 8px; }
+  .s11 .team-member + .team-member { border-left: 1px solid rgba(196,163,89,0.1); }
+  .s11 .member-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--white); }
+  .s11 .member-role { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+  .s11 .member-bio { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* ══ SLIDE 12: ROADMAP ══ */
+  .s12 .content { gap: 36px; }
+  .s12 h2 { font-size: clamp(28px, 4.5vw, 46px); }
+  .s12 .phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .s12 .phase { padding: 24px 28px; border-top: 1px solid rgba(196,163,89,0.25); display: flex; flex-direction: column; gap: 10px; }
+  .s12 .phase + .phase { border-left: 1px solid rgba(196,163,89,0.1); }
+  .s12 .phase.active { background: rgba(196,163,89,0.05); border-top-color: var(--gold); }
+  .s12 .phase-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: rgba(196,163,89,0.35); line-height: 1; }
+  .s12 .phase.active .phase-num { color: var(--gold); }
+  .s12 .phase-title { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .s12 .phase.active .phase-title { color: var(--gold2); }
+  .s12 .phase-timeline { font-size: 11px; color: rgba(196,163,89,0.5); font-style: italic; margin-bottom: 2px; }
+  .s12 .phase-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .s12 .phase.active .phase-body { color: var(--cream); }
+
+  /* ══ SLIDE 13: THE ASK ══ */
+  .s13 .starfield { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .s13 .starfield::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at  8% 12%, rgba(196,163,89,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 82%  8%, rgba(232,223,200,0.35) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 60% 20%, rgba(196,163,89,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 65%, rgba(232,223,200,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 92% 55%, rgba(196,163,89,0.25) 0%, transparent 100%),
+      radial-gradient(1px 1px at 47% 85%, rgba(232,223,200,0.2) 0%, transparent 100%);
+  }
+  .s13 .logo-watermark { position: absolute; right: -30px; bottom: 60px; opacity: 0.04; pointer-events: none; z-index: 1; }
+  .s13 .content { position: relative; z-index: 2; gap: 28px; justify-content: center; }
+  .s13 h2 { font-size: clamp(30px, 5vw, 56px); max-width: 660px; line-height: 1.1; }
+  .s13 .asks { display: flex; flex-direction: column; gap: 14px; max-width: 620px; }
+  .s13 .ask-item { display: flex; gap: 16px; align-items: flex-start; }
+  .s13 .ask-bullet { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); margin-top: 9px; flex-shrink: 0; }
+  .s13 .ask-text { font-size: 15px; font-weight: 300; color: var(--cream); line-height: 1.6; }
+  .s13 .closing { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; color: var(--gold); margin-top: 8px; }
+
+  /* ══ MOBILE ══ */
+  @media (max-width: 640px) {
+    .deck { padding: 8px 0 40px; gap: 2px; }
+    .slide { min-height: auto; }
+    .content { padding: 36px 24px 80px; }
+    .s1 .content { padding-top: 48px; }
+    .s7-diff .split, .s8-sil .split { grid-template-columns: 1fr; }
+    .s7-diff .col, .s8-sil .col { padding: 32px 24px; padding-bottom: 16px; }
+    .s7-diff .col-right { border-left: none; border-top: 1px solid rgba(196,163,89,0.2); padding-bottom: 80px; }
+    .s8-sil .col + .col { border-left: none; border-top: 1px solid rgba(196,163,89,0.15); padding: 24px 0 0; }
+    .s4-firm .pillars, .s11 .team-grid, .s12 .phases { grid-template-columns: 1fr; }
+    .s4-firm .pillar + .pillar, .s11 .team-member + .team-member { border-left: none; border-top: 1px solid rgba(196,163,89,0.1); }
+    .s5-client .client-grid { grid-template-columns: 1fr; }
+    .s10 .cases { grid-template-columns: 1fr; gap: 24px; }
+    .slide-footer { left: 24px; right: 24px; }
+    .horizon { bottom: 50px; }
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- ═══ LOGO MACRO — reused in every footer ═══ -->
+<!-- Small muted gem: 14x19 -->
+
+<!-- ══════════════════ SLIDE 1: TITLE ══════════════════ -->
+<div class="slide s1">
+  <div class="starfield"></div>
+  <div class="content">
+    <div class="eyebrow" style="margin-bottom:20px;">Internal Pitch · Confidential</div>
+    <div class="title-logo-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="72" height="96" style="opacity:0.92;">
+        <rect x="10" y="8" width="100" height="144" fill="none" stroke="#c4a359" stroke-width="7"/>
+        <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#c4a359"/>
+        <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#07111f"/>
+        <line x1="60" y1="38" x2="60" y2="20" stroke="#07111f" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="90" y2="50" stroke="#07111f" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="100" y2="80" stroke="#07111f" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="90" y2="110" stroke="#07111f" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="100" y2="80" stroke="#07111f" stroke-width="1.4"/>
+        <line x1="60" y1="122" x2="60" y2="140" stroke="#07111f" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="30" y2="110" stroke="#07111f" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="20" y2="80" stroke="#07111f" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="30" y2="50" stroke="#07111f" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="20" y2="80" stroke="#07111f" stroke-width="1.4"/>
+      </svg>
+      <h1><span class="gold">Earendil</span> Advisory</h1>
+    </div>
+    <p class="subtitle">A tax firm built to last — not to file</p>
+  </div>
+  <div class="horizon"></div>
+  <div class="slide-footer">
+    <span>Confidential</span>
+    <span>01 / 13</span>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 2: THE MYTH ══════════════════ -->
+<div class="slide s2-myth">
+  <div class="content">
+    <div class="eyebrow" style="margin-bottom:24px;">The Founding Myth</div>
+    <h2>A mariner who sailed<br>where no mortal<br><span class="gold">had gone before.</span></h2>
+    <p class="myth-body" style="margin-top:20px;">
+      Eärendil is a character from Tolkien's <em>The Silmarillion</em>. He built a ship and sailed to Valinor — a voyage forbidden to mortals — to petition the Valar on behalf of both Men and Elves during their darkest hour. He arrived before the catastrophe became unrecoverable. He carried the Silmaril on his brow as proof of his purpose. The Valar answered.
+    </p>
+    <div class="myth-quote" style="margin-top:20px;">
+      He goes where others won't. He acts before it's too late.<br>
+      He advocates for those who couldn't make the journey themselves.
+    </div>
+    <p class="myth-body" style="margin-top:20px; font-size:13px;">
+      This is not decoration. It is the operating philosophy of the firm. We do not wait for April. We voyage throughout the year so that by the time the moment arrives, the outcome is already determined.
+    </p>
+  </div>
+  <div class="horizon"></div>
+  <div class="slide-footer">
+    <div class="footer-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="14" height="19" style="opacity:0.5;">
+        <rect x="10" y="8" width="100" height="144" fill="none" stroke="#8a9ab5" stroke-width="7"/>
+        <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#8a9ab5"/>
+        <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#0a1628"/>
+        <line x1="60" y1="38" x2="60" y2="20" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="60" y1="122" x2="60" y2="140" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      </svg>
+      Earendil Advisory
+    </div>
+    <span>02 / 13</span>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 3: PREMISE ══════════════════ -->
+<div class="slide s3">
+  <div class="content">
+    <div class="eyebrow" style="margin-bottom:24px;">The Premise</div>
+    <h2>Most tax firms are Zero to Zero.<br><span class="gold italic">We do not have to be.</span></h2>
+    <p style="margin-top:16px;">Every CPA shop in Dallas runs the same cycle: client calls in March, we reconstruct the year, we file, we wait. The work is real. The relationship is shallow. Another firm quotes lower next year and wins.</p>
+    <p style="margin-top:12px; color:var(--muted);">This is not a pitch to build another compliance shop. It is a pitch to build a firm that accumulates structural advantages over time — through the way we work — and becomes permanently harder to replace.</p>
+  </div>
+  <div class="horizon"></div>
+  <div class="slide-footer">
+    <div class="footer-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="14" height="19" style="opacity:0.5;">
+        <rect x="10" y="8" width="100" height="144" fill="none" stroke="#8a9ab5" stroke-width="7"/>
+        <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#8a9ab5"/>
+        <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#0a1628"/>
+        <line x1="60" y1="38" x2="60" y2="20" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="60" y1="122" x2="60" y2="140" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      </svg>
+      Earendil Advisory
+    </div>
+    <span>03 / 13</span>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 4: THE FIRM ══════════════════ -->
+<div class="slide s4-firm">
+  <div class="content">
+    <div class="eyebrow" style="margin-bottom:24px;">What We Are</div>
+    <h2>A proactive tax advisory firm<br>serving <span class="gold">owner-operators</span> in Dallas.</h2>
+    <div class="pillars" style="margin-top:28px;">
+      <div class="pillar">
+        <div class="pillar-title">Not a filing shop</div>
+        <div class="pillar-body">We do not wait until April to think about your taxes. We build your position in real time, throughout the year.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-title">Not a software company</div>
+        <div class="pillar-body">We are a firm with a proprietary methodology. Technology serves the process. The process serves the client.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-title">Not a generalist practice</div>
+        <div class="pillar-body">We serve a specific client: individuals and S-corp owner-operators who want a CPA that thinks like a business partner.</div>
+      </div>
+    </div>
+  </div>
+  <div class="horizon"></div>
+  <div class="slide-footer">
+    <div class="footer-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="14" height="19" style="opacity:0.5;">
+        <rect x="10" y="8" width="100" height="144" fill="none" stroke="#8a9ab5" stroke-width="7"/>
+        <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#8a9ab5"/>
+        <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#0a1628"/>
+        <line x1="60" y1="38" x2="60" y2="20" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="60" y1="122" x2="60" y2="140" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      </svg>
+      Earendil Advisory
+    </div>
+    <span>04 / 13</span>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 5: TARGET CLIENT ══════════════════ -->
+<div class="slide s5-client">
+  <div class="content">
+    <div class="eyebrow" style="margin-bottom:24px;">Who We Serve</div>
+    <h2>The clients financial advisors<br><span class="gold">can't fully serve.</span></h2>
+    <div class="client-grid" style="margin-top:28px;">
+      <div class="client-card">
+        <div class="client-title">Individuals</div>
+        <div class="client-body">W-2 earners with complexity — investments, real estate, equity comp, or charitable giving strategies that a $200 TurboTax return doesn't touch.</div>
+      </div>
+      <div class="client-card">
+        <div class="client-title">S-Corp Owner-Operators</div>
+        <div class="client-body">Small business owners who need more than compliance. Comp structure, entity elections, retirement plan design, exit planning. The levers that change outcomes.</div>
+      </div>
+      <div class="client-card">
+        <div class="client-title">What they have in common</div>
+        <div class="client-body">They make decisions throughout the year that affect their tax position. They need someone thinking about it in real time — not reconstructing it in March.</div>
+      </div>
+      <div class="client-card">
+        <div class="client-title">Why we win here</div>
+        <div class="client-body">Financial advisors work at the portfolio level. They can't pull business-side levers. Compliance CPAs don't deliver proactive strategy. We do both.</div>
+      </div>
+    </div>
+  </div>
+  <div class="horizon"></div>
+  <div class="slide-footer">
+    <div class="footer-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="14" height="19" style="opacity:0.5;">
+        <rect x="10" y="8" width="100" height="144" fill="none" stroke="#8a9ab5" stroke-width="7"/>
+        <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#8a9ab5"/>
+        <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#0a1628"/>
+        <line x1="60" y1="38" x2="60" y2="20" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="60" y1="122" x2="60" y2="140" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      </svg>
+      Earendil Advisory
+    </div>
+    <span>05 / 13</span>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 6: SERVICES ══════════════════ -->
+<div class="slide s6-svc">
+  <div class="content">
+    <div class="eyebrow" style="margin-bottom:24px;">What We Do</div>
+    <h2>Three services. <span class="gold">One relationship.</span></h2>
+    <div class="svc-row" style="margin-top:28px;">
+      <div class="svc-item">
+        <div class="svc-num">01</div>
+        <div class="svc-content">
+          <div class="svc-title">Continuous Close</div>
+          <div class="svc-body">Your return is substantially built before December ends. Strategy happens in real time — not reconstructed in hindsight. No April surprises.</div>
+        </div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-num">02</div>
+        <div class="svc-content">
+          <div class="svc-title">Entity & Structure Advisory</div>
+          <div class="svc-body">S-corp elections, compensation structure, retirement plan design. The levers that financial advisors cannot pull and compliance shops don't deliver proactively.</div>
+        </div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-num">03</div>
+        <div class="svc-content">
+          <div class="svc-title">Exit & Succession Planning</div>
+          <div class="svc-body">Owner-operators deserve a tax strategy built for the long arc — not just the current year. We plan the exit from the day we onboard the client.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="horizon"></div>
+  <div class="slide-footer">
+    <div class="footer-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="14" height="19" style="opacity:0.5;">
+        <rect x="10" y="8" width="100" height="144" fill="none" stroke="#8a9ab5" stroke-width="7"/>
+        <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#8a9ab5"/>
+        <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#0a1628"/>
+        <line x1="60" y1="38" x2="60" y2="20" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="60" y1="122" x2="60" y2="140" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      </svg>
+      Earendil Advisory
+    </div>
+    <span>06 / 13</span>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 7: DIFFERENTIATOR ══════════════════ -->
+<div class="slide s7-diff">
+  <div class="split">
+    <div class="col col-left">
+      <div class="col-label bad">The Standard Model</div>
+      <h2>Client calls in March.<br>We reconstruct the year.<br>We file. We wait.</h2>
+      <p>Every tax firm in Dallas runs this cycle. The work is real. The value is limited. The relationship is shallow and replaceable. Another firm quotes lower next year and wins.</p>
+    </div>
+    <div class="col col-right">
+      <div class="col-label good">The Earendil Model</div>
+      <h2>The return is built<br><span class="gold">before December ends.</span></h2>
+      <p>Real-time advisory throughout the year. Tax position adjusted as the client's world changes. By April, nothing is a surprise — everything was planned for. That is a fundamentally different relationship.</p>
+    </div>
+  </div>
+  <div class="horizon"></div>
+  <div class="slide-footer">
+    <div class="footer-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="14" height="19" style="opacity:0.5;">
+        <rect x="10" y="8" width="100" height="144" fill="none" stroke="#8a9ab5" stroke-width="7"/>
+        <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#8a9ab5"/>
+        <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#0a1628"/>
+        <line x1="60" y1="38" x2="60" y2="20" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="60" y1="122" x2="60" y2="140" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      </svg>
+      Earendil Advisory
+    </div>
+    <span>07 / 13</span>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 8: SILMARIL ══════════════════ -->
+<div class="slide s8-sil">
+  <div class="content">
+    <div class="eyebrow" style="margin-bottom:20px;">The Methodology</div>
+    <h2><span class="gold">Silmaril</span> — our proprietary<br>continuous close system.</h2>
+    <p class="sil-intro">Named for the jewel Eärendil carried across the voyage — something of irreplaceable value, protected across the entire journey. Silmaril is the internal operating system that makes the continuous close possible.</p>
+    <div class="split" style="margin-top:24px;">
+      <div class="col">
+        <div class="col-eyebrow bad">What Silmaril Is Not</div>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:12px;">
+          <div class="list-item"><div class="list-marker x">×</div><div class="list-text dim">A product we sell to other firms</div></div>
+          <div class="list-item"><div class="list-marker x">×</div><div class="list-text dim">A SaaS startup in CPA firm clothing</div></div>
+          <div class="list-item"><div class="list-marker x">×</div><div class="list-text dim">A five-year build before we take clients</div></div>
+          <div class="list-item"><div class="list-marker x">×</div><div class="list-text dim">Complexity for its own sake</div></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="col-eyebrow good">What Silmaril Is</div>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:12px;">
+          <div class="list-item"><div class="list-marker check">→</div><div class="list-text lit">The internal operating system of the firm</div></div>
+          <div class="list-item"><div class="list-marker check">→</div><div class="list-text lit">A structured way to capture what we learn from every client</div></div>
+          <div class="list-item"><div class="list-marker check">→</div><div class="list-text lit">A process that compounds in value the longer we run it</div></div>
+          <div class="list-item"><div class="list-marker check">→</div><div class="list-text lit">The quiet thing that makes us unfair to compete against</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="horizon"></div>
+  <div class="slide-footer">
+    <div class="footer-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="14" height="19" style="opacity:0.5;">
+        <rect x="10" y="8" width="100" height="144" fill="none" stroke="#8a9ab5" stroke-width="7"/>
+        <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#8a9ab5"/>
+        <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#0a1628"/>
+        <line x1="60" y1="38" x2="60" y2="20" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="60" y1="122" x2="60" y2="140" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      </svg>
+      Earendil Advisory
+    </div>
+    <span>08 / 13</span>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 9: THE MOAT ══════════════════ -->
+<div class="slide s9">
+  <div class="content">
+    <div class="eyebrow" style="margin-bottom:20px;">The Structural Advantage</div>
+    <h2>What the boring firms<br>will never be able to buy.</h2>
+    <div class="moat-row" style="margin-top:28px;">
+      <div class="moat-item">
+        <div class="moat-marker">I</div>
+        <div class="moat-text"><strong>A proprietary pattern library.</strong> Years of structured decisions across entity types, comp structures, exit scenarios, retirement elections. No off-the-shelf tool has your data.</div>
+      </div>
+      <div class="moat-item">
+        <div class="moat-marker">II</div>
+        <div class="moat-text"><strong>A process clients can feel.</strong> The continuous close is not a feature — it is the relationship. Clients who experience it do not leave for a firm that files in April.</div>
+      </div>
+      <div class="moat-item">
+        <div class="moat-marker">III</div>
+        <div class="moat-text"><strong>A compounding institutional memory.</strong> Every year we run Silmaril, the system gets smarter. A firm that starts this in ten years will be ten years behind on data it cannot reconstruct.</div>
+      </div>
+      <div class="moat-item">
+        <div class="moat-marker">IV</div>
+        <div class="moat-text"><strong>A reason to exist beyond compliance.</strong> We are not selling a commodity. We are building the firm that owner-operators call before they make the decision — not after.</div>
+      </div>
+    </div>
+  </div>
+  <div class="horizon"></div>
+  <div class="slide-footer">
+    <div class="footer-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="14" height="19" style="opacity:0.5;">
+        <rect x="10" y="8" width="100" height="144" fill="none" stroke="#8a9ab5" stroke-width="7"/>
+        <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#8a9ab5"/>
+        <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#0a1628"/>
+        <line x1="60" y1="38" x2="60" y2="20" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="60" y1="122" x2="60" y2="140" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      </svg>
+      Earendil Advisory
+    </div>
+    <span>09 / 13</span>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 10: PRECEDENTS ══════════════════ -->
+<div class="slide s10">
+  <div class="content">
+    <div class="eyebrow" style="margin-bottom:20px;">This Has Been Done Before</div>
+    <h2>Every durable firm built its moat<br><span class="gold">on process, not product.</span></h2>
+    <div class="cases" style="margin-top:28px;">
+      <div class="case-item">
+        <div class="case-name">Amazon → AWS</div>
+        <div class="case-body">AWS was built to serve Amazon's own infrastructure needs. They mastered it internally for years before offering it externally. The internal tool became the product only after it was proven.</div>
+      </div>
+      <div class="case-item">
+        <div class="case-name">Palantir</div>
+        <div class="case-body">Forward-deployed engineers embedded inside agencies for years, mastering the problem before the platform existed. The moat isn't the software — it's the institutional knowledge the software encodes.</div>
+      </div>
+      <div class="case-item">
+        <div class="case-name">Toyota</div>
+        <div class="case-body">The Toyota Production System was a proprietary process long before it became a business school case. Competitors copied the tools. They could not copy the culture and data behind them.</div>
+      </div>
+    </div>
+  </div>
+  <div class="horizon"></div>
+  <div class="slide-footer">
+    <div class="footer-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="14" height="19" style="opacity:0.5;">
+        <rect x="10" y="8" width="100" height="144" fill="none" stroke="#8a9ab5" stroke-width="7"/>
+        <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#8a9ab5"/>
+        <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#0a1628"/>
+        <line x1="60" y1="38" x2="60" y2="20" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="60" y1="122" x2="60" y2="140" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      </svg>
+      Earendil Advisory
+    </div>
+    <span>10 / 13</span>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 11: TEAM ══════════════════ -->
+<div class="slide s11">
+  <div class="content">
+    <div class="eyebrow" style="margin-bottom:24px;">The Team</div>
+    <h2>Three founders. <span class="gold">One direction.</span></h2>
+    <div class="team-grid" style="margin-top:28px;">
+      <div class="team-member">
+        <div class="member-name">Hayden Harms</div>
+        <div class="member-role">Tax & Strategy</div>
+        <div class="member-bio">BBA Accounting, Dallas Baptist University. AR intern at Airbus Helicopters. CPA track. Architect of the Silmaril methodology and the continuous close model.</div>
+      </div>
+      <div class="team-member">
+        <div class="member-name">Co-Founder</div>
+        <div class="member-role">Tax</div>
+        <div class="member-bio">Accounting background, tax focus. Complements the advisory practice with technical depth across the full range of client engagements.</div>
+      </div>
+      <div class="team-member">
+        <div class="member-name">Co-Founder</div>
+        <div class="member-role">Audit & Attest</div>
+        <div class="member-bio">Audit track. Attest capability extends the client relationship through financing events and exits — reinforcing the lifetime tax position thesis at every inflection point.</div>
+      </div>
+    </div>
+  </div>
+  <div class="horizon"></div>
+  <div class="slide-footer">
+    <div class="footer-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="14" height="19" style="opacity:0.5;">
+        <rect x="10" y="8" width="100" height="144" fill="none" stroke="#8a9ab5" stroke-width="7"/>
+        <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#8a9ab5"/>
+        <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#0a1628"/>
+        <line x1="60" y1="38" x2="60" y2="20" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="60" y1="122" x2="60" y2="140" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      </svg>
+      Earendil Advisory
+    </div>
+    <span>11 / 13</span>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 12: ROADMAP ══════════════════ -->
+<div class="slide s12">
+  <div class="content">
+    <div class="eyebrow" style="margin-bottom:20px;">The Timeline</div>
+    <h2>Three phases. <span class="gold">One direction.</span></h2>
+    <div class="phases" style="margin-top:28px;">
+      <div class="phase active">
+        <div class="phase-num">I</div>
+        <div class="phase-timeline">Now → 2027</div>
+        <div class="phase-title">Build the Foundation</div>
+        <div class="phase-body">CPA exams. PTIN. First clients — individuals and small businesses we know personally. Pilot the continuous close. Build Silmaril as an internal tool. No marketing. No firm. Just mastery.</div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">II</div>
+        <div class="phase-timeline">2027 → 2029</div>
+        <div class="phase-title">Build the Firm</div>
+        <div class="phase-body">CPA licensure. Formal launch of Earendil Advisory. Selective client growth — owner-operators in Dallas. Silmaril becomes the operating system every client runs through. Data accumulates.</div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">III</div>
+        <div class="phase-timeline">2029 →</div>
+        <div class="phase-title">Build the Moat</div>
+        <div class="phase-body">When AI tools commoditize compliance, we already have the proprietary pattern library to do something they cannot. We productize only when the moat is real.</div>
+      </div>
+    </div>
+  </div>
+  <div class="horizon"></div>
+  <div class="slide-footer">
+    <div class="footer-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="14" height="19" style="opacity:0.5;">
+        <rect x="10" y="8" width="100" height="144" fill="none" stroke="#8a9ab5" stroke-width="7"/>
+        <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#8a9ab5"/>
+        <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#0a1628"/>
+        <line x1="60" y1="38" x2="60" y2="20" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="60" y1="122" x2="60" y2="140" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      </svg>
+      Earendil Advisory
+    </div>
+    <span>12 / 13</span>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 13: THE ASK ══════════════════ -->
+<div class="slide s13">
+  <div class="starfield"></div>
+  <div class="logo-watermark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="280" height="373">
+      <rect x="10" y="8" width="100" height="144" fill="none" stroke="#c4a359" stroke-width="7"/>
+      <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#c4a359"/>
+      <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#0a1628"/>
+      <line x1="60" y1="38" x2="60" y2="20" stroke="#0a1628" stroke-width="1.4"/>
+      <line x1="78" y1="54" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      <line x1="78" y1="106" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      <line x1="60" y1="122" x2="60" y2="140" stroke="#0a1628" stroke-width="1.4"/>
+      <line x1="42" y1="106" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      <line x1="42" y1="54" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+    </svg>
+  </div>
+  <div class="content">
+    <div class="eyebrow" style="margin-bottom:20px;">What We Are Committing To</div>
+    <h2>Not a software company.<br><span class="gold">A firm that thinks like one.</span></h2>
+    <div class="asks" style="margin-top:20px;">
+      <div class="ask-item"><div class="ask-bullet"></div><div class="ask-text">Agree on the continuous close as our operating model from day one — every client, every year, no exceptions</div></div>
+      <div class="ask-item"><div class="ask-bullet"></div><div class="ask-text">Resolve equity, roles, and decision rights before the firm launches — not after</div></div>
+      <div class="ask-item"><div class="ask-bullet"></div><div class="ask-text">Build Silmaril as our internal system before we need it to be more than that — no premature productization</div></div>
+      <div class="ask-item"><div class="ask-bullet"></div><div class="ask-text">Structure client engagements to capture data in a reusable, searchable format — not in someone's head or a flat spreadsheet</div></div>
+      <div class="ask-item"><div class="ask-bullet"></div><div class="ask-text">Hold a five-to-ten year horizon — this is discipline that becomes the firm's identity, not a sprint toward a launch</div></div>
+    </div>
+    <div class="closing" style="margin-top:20px;">Eärendil voyaged while others waited. So do we.</div>
+  </div>
+  <div class="horizon"></div>
+  <div class="slide-footer">
+    <div class="footer-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="14" height="19" style="opacity:0.5;">
+        <rect x="10" y="8" width="100" height="144" fill="none" stroke="#8a9ab5" stroke-width="7"/>
+        <polygon points="60,20 90,50 100,80 90,110 60,140 30,110 20,80 30,50" fill="#8a9ab5"/>
+        <polygon points="60,38 78,54 78,106 60,122 42,106 42,54" fill="#0a1628"/>
+        <line x1="60" y1="38" x2="60" y2="20" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="54" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="78" y1="106" x2="100" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="60" y1="122" x2="60" y2="140" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="106" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+        <line x1="42" y1="54" x2="20" y2="80" stroke="#0a1628" stroke-width="1.4"/>
+      </svg>
+      Confidential
+    </div>
+    <span>13 / 13</span>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
